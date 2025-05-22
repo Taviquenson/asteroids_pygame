@@ -2,6 +2,7 @@
 # the open-source pygame library
 # throughout this file
 import pygame
+import sys
 
 from constants import *
 from player import Player
@@ -48,6 +49,12 @@ def main():
 
         # no need to iterate "updatable" container because the pygame library knows how to handle this efficiently
         updatable.update(dt)
+
+        for asteroid in asteroids:
+            if asteroid.collision(player):
+                print("Game over!")
+                sys.exit()
+
 
         # whereas with a "draw" function, you need to tell Pygame where to draw each sprite
         for sprite in drawable:
