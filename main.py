@@ -59,8 +59,8 @@ def main():
                 sys.exit()
             for shot in shots:
                 if shot.collision(asteroid):
+                    asteroid.split() 
                     # kill() removes the object from all of its groups
-                    asteroid.kill() 
                     shot.kill()
 
         # With a "draw" function, you need to tell Pygame where to draw each sprite, and thus you need to iterate "drawable"
