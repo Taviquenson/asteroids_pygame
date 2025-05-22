@@ -8,6 +8,7 @@ from constants import *
 from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
+from shot import Shot
 
 def main():
     pygame.init()
@@ -20,11 +21,13 @@ def main():
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
+    shots = pygame.sprite.Group()
 
     # Set the static "container" field of the sprite classes
     Player.containers = (updatable, drawable)
     Asteroid.containers = (updatable, drawable, asteroids)
     AsteroidField.containers = (updatable)
+    Shot.containers = (updatable, drawable, shots)
 
     # IMPORTANT: Instances of sprites like "player" MUST be created after their clases are added to the groups/containers like in previous line
     # NOTICE that even though object "player" gets marked as an unused
@@ -47,7 +50,7 @@ def main():
             
         screen.fill("black")
 
-        # no need to iterate "updatable" container because the pygame library knows how to handle this efficiently
+        # No need to iterate "updatable" container because the pygame library knows how to handle this efficiently
         updatable.update(dt)
 
         for asteroid in asteroids:
@@ -55,8 +58,7 @@ def main():
                 print("Game over!")
                 sys.exit()
 
-
-        # whereas with a "draw" function, you need to tell Pygame where to draw each sprite
+        # With a "draw" function, you need to tell Pygame where to draw each sprite, and thus you need to iterate "drawable"
         for sprite in drawable:
             sprite.draw(screen)
 
